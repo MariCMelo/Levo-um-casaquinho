@@ -1,28 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getWeather } from "../../services/weatherApi";
+import { getCity } from "../../services/cityApi";
 
-export default function CityWeather() {
+export default function CityWeather({ city }) {
   const [weatherData, setWeatherData] = useState(null);
+  const [cityData, setCityData] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const cityInfo = await getCity(city);
 
-  const handleClick = async () => {
-    try {
-      const latitude = 44.34;
-      const longitude = 10.99;
+        const latitude = cityInfo[0].lat;
+        const longitude = cityInfo[0].lon;
+        if (city === null) {
+          latitude = 0;
+          longitude = 0;
+        }
 
-      const data = await getWeather(latitude, longitude);
-      setWeatherData(data);
-    } catch (error) {
-      console.error("Erro ao obter dados do clima:", error);
-    }
-  };
+        const weatherInfo = await getWeather(latitude, longitude);
+        console.log("weatherData:", weatherInfo);
+
+        setCityData(cityInfo);
+        setWeatherData(weatherInfo);
+      } catch (error) {
+        console.error("Erro ao obter dados do clima:", error);
+      }
+    };
+
+    fetchData();
+  }, [city]);
 
   return (
     <>
-      <button onClick={handleClick}>Obter Clima</button>
       <InitialPhrase>Previsão do tempo para...</InitialPhrase>
       <City>
-        {weatherData?.name !== undefined ? `${weatherData.name}` : "-"}
+        <p>{cityData?.[0]?.name ?? "-"}</p>
       </City>
       <GeographicCoordinates>
         <Coord>
@@ -50,7 +63,7 @@ const baseStyle = `
 
 const Coord = styled.div`
   ${baseStyle}
-  font-size: 20px;
+  font-size: 30px;
   margin-left: 30px;
 `;
 
@@ -60,12 +73,13 @@ const GeographicCoordinates = styled.div`
 
 const InitialPhrase = styled.div`
   ${baseStyle}
+  margin-top: 20px;
   margin-left: 30px;
-  font-size: 30px;
+  font-size: 40px;
 `;
 
 const City = styled.div`
   ${baseStyle}
   margin-left: 30px;
-  font-size: 60px;
+  font-size: 70px;
 `;

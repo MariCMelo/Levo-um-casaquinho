@@ -3,11 +3,11 @@ import CityWeather from "../../components/CityInformation/CityWeather";
 import InfoContainer from "../../components/CityInformation/InfoContainer";
 import ContainerRight from "../../components/ContainerRight";
 
-export default function CityInformationPage() {
+export default function CityInformationPage({city}) {
   return (
     <ContainerRight>
-      <CityWeather />
-      <InfoContainer />
+      <CityWeather city={city}/>
+      <InfoContainer city={city}/>
     </ContainerRight>
   );
 }

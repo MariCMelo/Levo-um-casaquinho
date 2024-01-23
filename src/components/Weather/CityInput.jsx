@@ -6,7 +6,6 @@ export default function CityInput({ onCityChange }) {
   const [cityName, setCityName] = useState("");
 
   function formatCityNameForURL(cityName) {
-  
     const formattedName = cityName.replace(/\s+/g, "%20");
     const cleanName = formattedName
       .normalize("NFD")
@@ -15,19 +14,20 @@ export default function CityInput({ onCityChange }) {
     return cleanName;
   }
 
-  const handleInputChange = (event) => {
-    setCityName(event.target.value);
-  };
-
   const handleEnterPress = (event) => {
     if (event.key === "Enter") {
       const formattedCityName = formatCityNameForURL(cityName);
-      
+      console.log("aquii",{ formattedCityName })
+
       console.log("Cidade formatada para URL:", formattedCityName); //TODO CLEAN
-     onCityChange(formattedCityName);
-  
+      onCityChange(formattedCityName);
+
       setCityName("");
     }
+  };
+
+  const handleInputChange = (event) => {
+    setCityName(event.target.value);
   };
 
   return (
@@ -35,8 +35,8 @@ export default function CityInput({ onCityChange }) {
       <SearchOutline
         className="search-icon"
         color="#555"
-        height="20px"
-        width="25px"
+        height="30px"
+        width="35px"
       />
       <input
         placeholder="Procure por uma cidade"
@@ -54,10 +54,10 @@ const StyledCityInput = styled.div`
   align-items: center;
 
   input {
-    width: 400px;
-    height: 50px;
+    width: 50vh;
+    height: 60px;
     padding: 8px;
-    font-size: 20px;
+    font-size: 30px;
     border: 1px solid transparent;
     background-color: #ededef;
     border-radius: 24px;

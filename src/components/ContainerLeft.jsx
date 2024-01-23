@@ -7,7 +7,7 @@ export default styled.div`
   justify-content: center;
   align-items: center;
   max-width: 40%; 
-  background-color: green;
+  background-color: white;
   overflow: hidden;
 
   @media (max-width: 600px) {

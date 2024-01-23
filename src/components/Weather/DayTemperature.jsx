@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getWeather } from "../../services/weatherApi";
 import { getCity } from "../../services/cityApi";
@@ -9,6 +9,7 @@ const formatDate = (date) => {
   const year = date.getFullYear().toString().slice(-2);
   return `${day}/${month}/${year}`;
 };
+
 const formatWeekDay = (date) => {
   const options = { weekday: "long" };
   return date.toLocaleDateString("pt-BR", options);
@@ -21,19 +22,22 @@ function kelvinToCelsius(kelvin) {
 export default function DayTemperature({ city }) {
   const [weatherData, setWeatherData] = useState(null);
 
-  const handleClick = async () => {
-    try {
-      const cityData = await getCity(city);
-      const latitude = cityData[0].lat;
-      const longitude = cityData[0].lon;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const cityData = await getCity(city);
+        const latitude = cityData[0].lat;
+        const longitude = cityData[0].lon;
 
-      const data = await getWeather(latitude, longitude);
-      console.log(city);
-      setWeatherData(data);
-    } catch (error) {
-      console.error("Erro ao obter dados do clima:", error);
-    }
-  };
+        const data = await getWeather(latitude, longitude);
+        setWeatherData(data);
+      } catch (error) {
+        console.error("Erro ao obter dados do clima:", error);
+      }
+    };
+
+    fetchData();
+  }, [city]);
 
   const today = new Date();
   const formattedDate = formatDate(today);
@@ -42,7 +46,6 @@ export default function DayTemperature({ city }) {
   return (
     <>
       <WeatherIcon />
-      <button onClick={handleClick}>Obter Clima</button>
       <TemperatureDay>
         {" "}
         {weatherData?.main?.temp_min !== undefined
@@ -63,27 +66,37 @@ export default function DayTemperature({ city }) {
 
 const WeatherIcon = styled.div`
   font-size: 100px;
+  margin-bottom: 30px;
 `;
+
 const WeatherDescription = styled.div`
   font-size: 50px;
+  margin-bottom: 20px;
 `;
+
 const NumberDay = styled.div`
   font-size: 40px;
 `;
+
 const WeekDay = styled.div`
   font-size: 40px;
+  margin-bottom: 30px;
 `;
 
 const TemperatureDay = styled.h1`
+  font-size: 130px;
+  margin-bottom: 30px;
+
   @media (min-width: 600px) {
     font-size: 130px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
 `;
 
 const Divider = styled.hr`
-  width: 400px;
+  width: 70%;
   height: 5px;
   border: none;
   background-color: #ededed;
+  margin-bottom: 30px;
 `;

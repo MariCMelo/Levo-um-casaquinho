@@ -1,19 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getWeather } from "../../services/weatherApi";
+import { getCity } from "../../services/cityApi";
 
-export default function InfoContainer() {
+export default function InfoContainer({ city }) {
   const [weatherData, setWeatherData] = useState(null);
 
   function kelvinToCelsius(kelvin) {
     return kelvin - 273.15;
   }
 
-//   function fahrenheitToCelsius(value) {
-//     return Math.floor(((value - 32) * 5) / 9);
-//   }
-
-const isCoatNeeded = () => {
+  const isCoatNeeded = () => {
     const maxTempCelsius =
       weatherData?.main?.temp_max !== undefined
         ? kelvinToCelsius(weatherData.main.temp).toFixed(0)
@@ -22,23 +19,31 @@ const isCoatNeeded = () => {
     return maxTempCelsius !== null && parseInt(maxTempCelsius) < 17;
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const cityInfo = await getCity(city);
 
-  const handleClick = async () => {
-    try {
-      const latitude = 44.34;
-      const longitude = 10.99;
+        const latitude = cityInfo[0].lat;
+        const longitude = cityInfo[0].lon;
+        if (city === null) {
+          latitude = 0;
+          longitude = 0;
+        }
 
-      const data = await getWeather(latitude, longitude);
-      setWeatherData(data);
-    } catch (error) {
-      console.error("Erro ao obter dados do clima:", error);
-    }
-  };
+        const data = await getWeather(latitude, longitude);
+        setWeatherData(data);
+      } catch (error) {
+        console.error("Erro ao obter dados do clima:", error);
+      }
+    };
+
+    fetchData();
+  }, [city]);
 
   return (
     <>
       <Container>
-        <button onClick={handleClick}>Obter Clima</button>
         <Info>
           Mínima
           <span className="custom-font">
@@ -82,6 +87,7 @@ const isCoatNeeded = () => {
 }
 
 const Container = styled.div`
+  width: 90vh;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
