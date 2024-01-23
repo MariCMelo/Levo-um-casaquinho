@@ -1,19 +1,13 @@
 import styled from "styled-components";
-import ContainerLeft from "../ContainerLeft";
-import ContainerRight from "../ContainerRight";
-import WeatherTitle from "./WeatherTitle";
-import CityInput from "./CityInput";
-import DayTemperature from "./DayTemperature";
 import WeatherPage from "../../pages/weather";
+import CityInformationPage from "../../pages/graphics";
 
 export default function Weather() {
   return (
     <>
     <WeatherContainer>
       <WeatherPage />
-      <ContainerRight>
-        <h1>Oieee</h1>
-      </ContainerRight>
+      <CityInformationPage />
     </WeatherContainer>
     </>
   );

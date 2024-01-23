@@ -1,8 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { SearchOutline } from "react-ionicons";
 
-export default function CityInput() {
+export default function CityInput({ onCityChange }) {
+  const [cityName, setCityName] = useState("");
+
+  function formatCityNameForURL(cityName) {
+  
+    const formattedName = cityName.replace(/\s+/g, "%20");
+    const cleanName = formattedName
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+
+    return cleanName;
+  }
+
+  const handleInputChange = (event) => {
+    setCityName(event.target.value);
+  };
+
+  const handleEnterPress = (event) => {
+    if (event.key === "Enter") {
+      const formattedCityName = formatCityNameForURL(cityName);
+      
+      console.log("Cidade formatada para URL:", formattedCityName); //TODO CLEAN
+     onCityChange(formattedCityName);
+  
+      setCityName("");
+    }
+  };
+
   return (
     <StyledCityInput>
       <SearchOutline
@@ -11,7 +38,12 @@ export default function CityInput() {
         height="20px"
         width="25px"
       />
-      <input placeholder="Procure por uma cidade" />
+      <input
+        placeholder="Procure por uma cidade"
+        value={cityName}
+        onChange={handleInputChange}
+        onKeyDown={handleEnterPress}
+      />
     </StyledCityInput>
   );
 }
@@ -22,7 +54,7 @@ const StyledCityInput = styled.div`
   align-items: center;
 
   input {
-    width:400px;
+    width: 400px;
     height: 50px;
     padding: 8px;
     font-size: 20px;
@@ -30,8 +62,8 @@ const StyledCityInput = styled.div`
     background-color: #ededef;
     border-radius: 24px;
     padding-left: 40px;
-    
-     &:focus {
+
+    &:focus {
       outline: none;
     }
   }
@@ -41,6 +73,6 @@ const StyledCityInput = styled.div`
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
-    margin-right:10px;
+    margin-right: 10px;
   }
 `;
