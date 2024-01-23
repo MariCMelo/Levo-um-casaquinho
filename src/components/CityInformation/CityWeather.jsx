@@ -19,7 +19,6 @@ export default function CityWeather({ city }) {
         }
 
         const weatherInfo = await getWeather(latitude, longitude);
-        console.log("weatherData:", weatherInfo);
 
         setCityData(cityInfo);
         setWeatherData(weatherInfo);

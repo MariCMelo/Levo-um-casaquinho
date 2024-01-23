@@ -32,7 +32,6 @@ export default function DayTemperature({ city }) {
         const data = await getWeather(latitude, longitude);
         setWeatherData(data);
       } catch (error) {
-        console.error("Erro ao obter dados do clima:", error);
       }
     };
 

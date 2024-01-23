@@ -17,9 +17,6 @@ export default function CityInput({ onCityChange }) {
   const handleEnterPress = (event) => {
     if (event.key === "Enter") {
       const formattedCityName = formatCityNameForURL(cityName);
-      console.log("aquii",{ formattedCityName })
-
-      console.log("Cidade formatada para URL:", formattedCityName); //TODO CLEAN
       onCityChange(formattedCityName);
 
       setCityName("");
