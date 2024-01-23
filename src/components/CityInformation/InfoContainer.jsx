@@ -87,7 +87,7 @@ export default function InfoContainer({ city }) {
 }
 
 const Container = styled.div`
-  width: 90vh;
+  width:100vh;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -108,6 +108,7 @@ const Info = styled.div`
   color: white;
   font-size: 22px;
   font-weight: 600;
+  margin-right:10px;
 
   .custom-font {
     margin-top: 15px;

@@ -19,7 +19,7 @@ export default function CityWeather({ city }) {
         }
 
         const weatherInfo = await getWeather(latitude, longitude);
-
+console.log(cityData)
         setCityData(cityInfo);
         setWeatherData(weatherInfo);
       } catch (error) {
@@ -34,7 +34,7 @@ export default function CityWeather({ city }) {
     <>
       <InitialPhrase>Previsão do tempo para...</InitialPhrase>
       <City>
-        <p>{cityData?.[0]?.name ?? "-"}</p>
+      <p>{cityData?.[0]?.local_names.pt || cityData?.[0]?.name || "-"}</p>
       </City>
       <GeographicCoordinates>
         <Coord>
