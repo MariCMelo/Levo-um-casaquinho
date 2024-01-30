@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import { getCity } from "../../services/cityApi";
 import {
   LineChart,
@@ -13,8 +14,6 @@ import { getForecast } from "../../services/forecastApi";
 export default function Chart({ city }) {
   const [forecastData, setForecastData] = useState(null);
   const [cityData, setCityData] = useState(null);
-  
-  const data = [{name: 'Page A', uv: 50, pv: 2400, amt: 2400}];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,9 +26,7 @@ export default function Chart({ city }) {
           latitude = 0;
           longitude = 0;
         }
-        console.log(latitude, longitude);
         const forecastInfo = await getForecast(latitude, longitude);
-        console.log(forecastInfo);
         setCityData(cityInfo);
         setForecastData(forecastInfo);
       } catch (error) {
@@ -40,55 +37,73 @@ export default function Chart({ city }) {
     fetchData();
   }, [city]);
 
-  const renderCustomAxisTick = () => {
-    // Verifica se há dados antes de renderizar o gráfico
-    // if (!forecastData) {
-    //   return <div>Carregando...</div>;
-    // }
+  let ldays = [];
+  let ltemps = [];
 
-    // ------------------
-    const renderCustomAxisTick = ({ x, y, payload }) => {
-      let path = '';
-    
-      switch (payload.value) {
-        case 'Page A':
-          
-          break;
-        case 'Page B':
-          
-          break;
-      
-        default:
-          path = '';
-      }
-    
-      return (
-        <svg x={x - 12} y={y + 4} width={24} height={24} viewBox="0 0 1024 1024" fill="#666">
-         
-        </svg>
-      );
+  for (let i = 0; i < forecastData?.list.length; i++) {
+    const dayTimestamp = forecastData.list[i].dt_txt;
+    const date = new Date(dayTimestamp);
+    const day = `${date.getDate().toString().padStart(2, "0")}/${(
+      date.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}`;
+    ldays.push(day);
+    const tempKelvin = forecastData.list[i].main.temp;
+    const tempCelsius = (tempKelvin - 273.15).toFixed(1);
+    ltemps.push(`${tempCelsius}°C`);
+  }
+
+  const data = ldays.map((formattedDate, index) => {
+    let originalDate = ldays[index];
+    let parts = originalDate.split("/");
+
+    let newDate = `${parts[1]}/${parts[0]}`;
+
+    const dayOfWeek = new Date(newDate).toLocaleDateString("pt-BR", {
+      weekday: "short",
+    });
+
+    return {
+      name: `${formattedDate} (${dayOfWeek})`,
+      temp: parseFloat(ltemps[index]),
     };
+  });
+  if (!forecastData) {
+    return <div>Carregando...</div>;
+  }
 
-    //-------------------
-    
-
-    return (
-      <>
-        <LineChart
-          width={600}
-          height={300}
-          data={data}
-          margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-        >
-          <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-          <CartesianGrid stroke="#000000" strokeDasharray="5 5" />
-          <XAxis dataKey="name" tick={renderCustomAxisTick} />
-          <YAxis />
-          <Tooltip />
-        </LineChart>
-      </>
-    );
-  };
-
-  return renderCustomAxisTick(); // Renderiza o gráfico
+  return (
+    <ChartContainer>
+      <LineChart
+        width={1050}
+        height={550}
+        data={data}
+        margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+        style={{ backgroundColor: "#f0f0f0", padding: "10px" }}
+      >
+        <Line type="monotone" dataKey="temp" stroke="#8884d8" strokeWidth={2} />
+        <CartesianGrid stroke="#000000" strokeDasharray="5 5" />
+        <XAxis
+          dataKey="name"
+          tick={({ x, y, payload }) => (
+            <text x={x} y={y} dy={16} textAnchor="middle" fill="#666">
+              {payload.value}
+            </text>
+          )}
+        />
+        <YAxis tickFormatter={(value) => `${value}°C`} />
+        <Tooltip />
+      </LineChart>
+    </ChartContainer>
+  );
 }
+const ChartContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100pw;
+  height: 100ph;
+  margin: 50px;
+  padding: 10px;
+`;
