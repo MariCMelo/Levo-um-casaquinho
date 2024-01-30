@@ -4,12 +4,12 @@ import InfoContainer from "../../components/CityInformation/InfoContainer";
 import ContainerRight from "../../components/ContainerRight";
 import Chart from "../../components/CityInformation/Chart";
 
-export default function CityInformationPage({city}) {
+export default function CityInformationPage({ city }) {
   return (
     <ContainerRight>
-      <CityWeather city={city}/>
-      <InfoContainer city={city}/>
-      <Chart city={city}/>
+      <CityWeather city={city} />
+      <InfoContainer city={city} />
+      <Chart city={city} />
     </ContainerRight>
   );
 }

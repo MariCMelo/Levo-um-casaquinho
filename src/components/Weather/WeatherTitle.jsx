@@ -15,12 +15,12 @@ export default function WeatherTitle() {
 }
 
 export const Title = styled.h1`
-width: 30vh;
-font-size:80px;
+  width: 30vh;
+  font-size: 80px;
   @media (min-width: 400px) {
     font-size: 40px;
     margin-bottom: 80px;
-    font-weight:600;
+    font-weight: 600;
   }
 `;
 

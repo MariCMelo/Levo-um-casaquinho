@@ -1,12 +1,12 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./pages/dashboard";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Dashboard />}>

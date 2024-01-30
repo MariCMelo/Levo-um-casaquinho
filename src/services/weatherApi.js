@@ -7,4 +7,3 @@ export async function getWeather(lat, lon) {
   const response = await api.get(url);
   return response.data;
 }
-

@@ -27,7 +27,7 @@ export default function InfoContainer({ city }) {
 
           let latitude = cityInfo[0].lat;
           let longitude = cityInfo[0].lon;
-          
+
           const data = await getWeather(latitude, longitude);
           setWeatherData(data);
         }
@@ -39,11 +39,16 @@ export default function InfoContainer({ city }) {
     fetchData();
   }, [city]);
 
-  const coatPhrase = city !== null ? (isCoatNeeded() ? 'Leva um casaquinho' : 'Não, você não deve levar um casaquinho') : null;
+  const coatPhrase =
+    city !== null
+      ? isCoatNeeded()
+        ? "Leva um casaquinho"
+        : "Não, você não deve levar um casaquinho"
+      : null;
 
   return (
     <>
-     <Container>
+      <Container>
         <Info>
           Mínima
           <span className="custom-font">
@@ -87,7 +92,7 @@ export default function InfoContainer({ city }) {
 }
 
 const Container = styled.div`
-  width:80vh;
+  width: 80vh;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -106,13 +111,12 @@ const Info = styled.div`
   background-color: #4d4494;
   color: white;
   font-size: 18px;
-  margin-right:10px;
+  margin-right: 10px;
 
   .custom-font {
     margin-top: 10px;
     font-size: 25px;
-    font-weight:500;
-   
+    font-weight: 500;
   }
 `;
 

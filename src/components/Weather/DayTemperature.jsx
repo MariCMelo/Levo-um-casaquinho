@@ -33,8 +33,8 @@ export default function DayTemperature({ city }) {
     (iconCode.slice(-1) === "d"
       ? "#EC6E4C"
       : iconCode.slice(-1) === "n"
-      ? "#696969"
-      : "");
+        ? "#696969"
+        : "");
 
   const weatherDescriptions = {
     "01": "Céu claro",

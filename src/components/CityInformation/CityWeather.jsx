@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import styled from "styled-components";
 import { getWeather } from "../../services/weatherApi";
 import { getCity } from "../../services/cityApi";
@@ -10,25 +10,18 @@ export default function CityWeather({ city }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        
-        
         const cityInfo = await getCity(city);
         if (cityInfo.length === 0) {
-          toast('Cidade não encontrada');
- 
+          toast("Cidade não encontrada");
         }
-console.log("INFO",cityInfo)
-
         const latitude = cityInfo[0].lat;
         const longitude = cityInfo[0].lon;
         if (city === null) {
-          toast('Cidade não encontrada');
           latitude = 0;
           longitude = 0;
         }
 
         const weatherInfo = await getWeather(latitude, longitude);
-console.log(cityData)
         setCityData(cityInfo);
         setWeatherData(weatherInfo);
       } catch (error) {
@@ -43,7 +36,7 @@ console.log(cityData)
     <>
       <InitialPhrase>Previsão do tempo para...</InitialPhrase>
       <City>
-      <p>{cityData?.[0]?.local_names.pt || cityData?.[0]?.name || "-"}</p>
+        <p>{cityData?.[0]?.local_names.pt || cityData?.[0]?.name || "-"}</p>
       </City>
       <GeographicCoordinates>
         <Coord>

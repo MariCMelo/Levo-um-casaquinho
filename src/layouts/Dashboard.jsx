@@ -1,14 +1,12 @@
-import styled from 'styled-components';
-import Page from '../components/Page';
+import styled from "styled-components";
+import Page from "../components/Page";
 
-
-export default function Dashboard({children}) {
-<Page>
-<StyledContainer width="1040px" height="680px">
-        {children}
-      </StyledContainer>
-</Page>
-
+export default function Dashboard({ children }) {
+  <Page>
+    <StyledContainer width="1040px" height="680px">
+      {children}
+    </StyledContainer>
+  </Page>;
 }
 
 const StyledContainer = styled(Container)`
@@ -17,7 +15,7 @@ const StyledContainer = styled(Container)`
   align-items: stretch;
   flex-direction: row;
   padding: 0;
-  
+
   & > * {
     text-align: initial;
   }

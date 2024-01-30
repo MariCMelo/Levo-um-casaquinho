@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Weather from "../../components";
 
-
 export default function Dashboard() {
   return (
     <Container>
@@ -21,4 +20,3 @@ const Container = styled.div`
     padding: 20px;
   }
 `;
-
