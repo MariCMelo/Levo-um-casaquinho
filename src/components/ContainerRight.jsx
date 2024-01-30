@@ -5,9 +5,12 @@ export default styled.div`
   max-width: 60%; 
   background-color: #D8D8D8;
   overflow: hidden;
+  padding:10px;
+
 
   @media (max-width: 600px) {
     max-width: 100%; 
     height: 100%;
   }
 `;
+
