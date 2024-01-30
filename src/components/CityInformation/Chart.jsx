@@ -57,9 +57,7 @@ export default function Chart({ city }) {
   const data = ldays.map((formattedDate, index) => {
     let originalDate = ldays[index];
     let parts = originalDate.split("/");
-
     let newDate = `${parts[1]}/${parts[0]}`;
-
     const dayOfWeek = new Date(newDate).toLocaleDateString("pt-BR", {
       weekday: "short",
     });
@@ -70,20 +68,21 @@ export default function Chart({ city }) {
     };
   });
   if (!forecastData) {
-    return <div>Carregando...</div>;
+    return <div></div>;
   }
 
   return (
     <ChartContainer>
+      <h1>Próximos dias</h1>
       <LineChart
         width={800}
-        height={350}
+        height={400}
         data={data}
         margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
         style={{ backgroundColor: "#f0f0f0", padding: "10px" }}
       >
         <Line type="monotone" dataKey="temp" stroke="#8884d8" strokeWidth={2} />
-        <CartesianGrid stroke="#000000" strokeDasharray="5 5" />
+        <CartesianGrid stroke="#e7e7e7" strokeDasharray="0" />
         <XAxis
           dataKey="name"
           tick={({ x, y, payload }) => (
@@ -93,17 +92,52 @@ export default function Chart({ city }) {
           )}
         />
         <YAxis tickFormatter={(value) => `${value}°C`} />
-        <Tooltip />
+        <Tooltip
+          content={({ label, payload }) => (
+            <CustomTooltip label={label} payload={payload} />
+          )}
+        />
       </LineChart>
     </ChartContainer>
   );
 }
 const ChartContainer = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100pw;
-  height: 100ph;
-  margin: 50px;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100vw;
+  height: 100vh;
+  margin: 20px;
   padding: 10px;
+
+  h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
 `;
+
+const StyledTooltipContainer = styled.div`
+  background: #d8d8d8;
+  border: 1px solid #ccc;
+  padding: 10px;
+  height: 50px;
+`;
+
+const StyledTooltipLabel = styled.p`
+  margin: 0;
+`;
+
+const StyledTooltipValue = styled.p`
+  margin: 0;
+  color: #8884d8;
+`;
+
+const CustomTooltip = ({ label, payload }) => (
+  <StyledTooltipContainer>
+    <StyledTooltipLabel>{label}</StyledTooltipLabel>
+    {payload && payload.length > 0 && (
+      <StyledTooltipValue>{payload[0].payload.temp} °C</StyledTooltipValue>
+    )}
+  </StyledTooltipContainer>
+);

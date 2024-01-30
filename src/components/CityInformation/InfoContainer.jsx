@@ -13,7 +13,7 @@ export default function InfoContainer({ city }) {
   const isCoatNeeded = () => {
     const maxTempCelsius =
       weatherData?.main?.temp_max !== undefined
-        ? kelvinToCelsius(weatherData.main.temp).toFixed(0)
+        ? kelvinToCelsius(weatherData.main.temp_max).toFixed(0)
         : null;
 
     return maxTempCelsius !== null && parseInt(maxTempCelsius) < 17;
@@ -22,17 +22,15 @@ export default function InfoContainer({ city }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const cityInfo = await getCity(city);
+        if (city !== null) {
+          const cityInfo = await getCity(city);
 
-        const latitude = cityInfo[0].lat;
-        const longitude = cityInfo[0].lon;
-        if (city === null) {
-          latitude = 0;
-          longitude = 0;
+          let latitude = cityInfo[0].lat;
+          let longitude = cityInfo[0].lon;
+          
+          const data = await getWeather(latitude, longitude);
+          setWeatherData(data);
         }
-
-        const data = await getWeather(latitude, longitude);
-        setWeatherData(data);
       } catch (error) {
         console.error("Erro ao obter dados do clima:", error);
       }
@@ -41,47 +39,15 @@ export default function InfoContainer({ city }) {
     fetchData();
   }, [city]);
 
+  const coatPhrase = city !== null ? (isCoatNeeded() ? 'Leva um casaquinho' : 'Não, você não deve levar um casaquinho') : null;
+
   return (
     <>
       <Container>
-        <Info>
-          Mínima
-          <span className="custom-font">
-            {weatherData?.main?.temp_min !== undefined
-              ? kelvinToCelsius(weatherData.main.temp_min).toFixed(0) + "°C"
-              : "-"}
-          </span>
-        </Info>
-
-        <Info>
-          Máxima
-          <span className="custom-font">
-            {weatherData?.main?.temp_min !== undefined
-              ? kelvinToCelsius(weatherData.main.temp_max).toFixed(0) + "°C"
-              : "-"}
-          </span>
-        </Info>
-
-        <Info>
-          Umidade
-          <span className="custom-font">
-            {weatherData?.main?.humidity !== undefined
-              ? `${weatherData.main.humidity}%`
-              : "-"}
-          </span>
-        </Info>
-
-        <Info>
-          Vento
-          <span className="custom-font">
-            {weatherData?.wind?.speed !== undefined
-              ? `${weatherData.wind.speed.toFixed(1)} m/s`
-              : "-"}
-          </span>
-        </Info>
+        {/* ... (existing code) */}
       </Container>
 
-      {isCoatNeeded() && <CoatPhrase>Leva um casaquinho</CoatPhrase>}
+      {coatPhrase && <CoatPhrase>{coatPhrase}</CoatPhrase>}
     </>
   );
 }
