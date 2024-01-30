@@ -5,7 +5,7 @@ export default styled.div`
   max-width: 60%; 
   background-color: #D8D8D8;
   overflow: hidden;
-  padding:10px;
+  padding:30px;
 
 
   @media (max-width: 600px) {

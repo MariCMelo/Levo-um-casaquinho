@@ -13,11 +13,9 @@ export default function Dashboard() {
 }
 
 const Container = styled.div`
-  padding: 30px;
   height: 100vh;
   width: 100vw;
   overflow-y: auto;
-  background-color: ;
 
   @media (max-width: 600px) {
     padding: 20px;
