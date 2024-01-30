@@ -28,13 +28,21 @@ export default function DayTemperature({ city }) {
     ? `https://openweathermap.org/img/wn/${iconCode}@2x.png`
     : "-";
 
-  const textColor =
-    iconCode &&
-    (iconCode.slice(-1) === "d"
-      ? "#EC6E4C"
-      : iconCode.slice(-1) === "n"
-      ? "#696969"
-      : "");
+const textColor = iconCode && (iconCode.slice(-1) === 'd' ? '#EC6E4C' : (iconCode.slice(-1) === 'n' ? '#696969' : ''));
+
+const weatherDescriptions = {
+  '01': 'Céu claro',
+  '02': 'Céu parcialmente nublado',
+  '03': 'Céu nublado',
+  '04': 'Céu encoberto',
+  '09': 'Chuva fraca',
+  '10': 'Chuva moderada',
+  '11': 'Tempestade',
+  '13': 'Neve',
+  '50': 'Neblina',
+};
+const weatherDescription = weatherData?.weather?.[0]?.icon?.slice(0, 2);
+const description = weatherDescriptions[weatherDescription] 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,20 +66,23 @@ export default function DayTemperature({ city }) {
   return (
     <>
       <WeatherIcon />
+     
 
       <TemperatureDay textColor={textColor}>
-        {weatherData?.weather?.[0]?.description !== undefined ? (
+      {weatherData?.weather?.[0]?.description !== undefined ? (
           <img src={weatherImage} alt="Weather Image" />
         ) : (
           <div></div>
-        )}{" "}
+        )}
+
+        {" "}
         {weatherData?.main?.temp_min !== undefined
           ? kelvinToCelsius(weatherData.main.temp_min).toFixed(0) + "°C"
           : "-"}
       </TemperatureDay>
       <WeatherDescription>
         {weatherData?.weather?.[0]?.description !== undefined
-          ? `${weatherData.weather[0].description}`
+          ? `${description}`
           : "-"}
       </WeatherDescription>
       <Divider />
@@ -101,9 +112,9 @@ const WeekDay = styled.div`
 `;
 
 const TemperatureDay = styled.h1`
-  font-size: 130px;
+ font-size: 130px;
   margin-bottom: 30px;
-  color: ${(props) => props.textColor || "inherit"};
+  color: ${(props) => props.textColor || 'inherit'};  
 
   @media (min-width: 600px) {
     font-size: 130px;
