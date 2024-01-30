@@ -13,7 +13,8 @@ import { getForecast } from "../../services/forecastApi";
 export default function Chart({ city }) {
   const [forecastData, setForecastData] = useState(null);
   const [cityData, setCityData] = useState(null);
-  const data = [{name: 'Page A', uv: 400, pv: 2400, amt: 2400}];
+  
+  const data = [{name: 'Page A', uv: 50, pv: 2400, amt: 2400}];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,16 +42,42 @@ export default function Chart({ city }) {
 
   const renderCustomAxisTick = () => {
     // Verifica se há dados antes de renderizar o gráfico
-    if (!forecastData) {
-      return <div>Carregando...</div>;
-    }
+    // if (!forecastData) {
+    //   return <div>Carregando...</div>;
+    // }
+
+    // ------------------
+    const renderCustomAxisTick = ({ x, y, payload }) => {
+      let path = '';
+    
+      switch (payload.value) {
+        case 'Page A':
+          
+          break;
+        case 'Page B':
+          
+          break;
+      
+        default:
+          path = '';
+      }
+    
+      return (
+        <svg x={x - 12} y={y + 4} width={24} height={24} viewBox="0 0 1024 1024" fill="#666">
+         
+        </svg>
+      );
+    };
+
+    //-------------------
+    
 
     return (
       <>
         <LineChart
           width={600}
           height={300}
-          data={forecastData}
+          data={data}
           margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
         >
           <Line type="monotone" dataKey="uv" stroke="#8884d8" />
