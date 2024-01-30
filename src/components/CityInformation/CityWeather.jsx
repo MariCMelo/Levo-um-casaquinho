@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toast } from 'react-toastify';
 import styled from "styled-components";
 import { getWeather } from "../../services/weatherApi";
 import { getCity } from "../../services/cityApi";
@@ -9,11 +10,20 @@ export default function CityWeather({ city }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        
+        
         const cityInfo = await getCity(city);
+        if (cityInfo.length === 0) {
+          console.log("errrrrooooo")
+          toast('Cidade não encontrada');
+ 
+        }
+console.log("INFO",cityInfo)
 
         const latitude = cityInfo[0].lat;
         const longitude = cityInfo[0].lon;
         if (city === null) {
+          toast('Cidade não encontrada');
           latitude = 0;
           longitude = 0;
         }
