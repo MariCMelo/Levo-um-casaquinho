@@ -77,7 +77,7 @@ export default function Chart({ city }) {
     <ChartContainer>
       <LineChart
         width={800}
-        height={450}
+        height={350}
         data={data}
         margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
         style={{ backgroundColor: "#f0f0f0", padding: "10px" }}
