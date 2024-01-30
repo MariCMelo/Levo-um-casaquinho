@@ -54,7 +54,7 @@ const StyledCityInput = styled.div`
     width: 50vh;
     height: 60px;
     padding: 8px;
-    font-size: 30px;
+    font-size: 20px;
     border: 1px solid transparent;
     background-color: #ededef;
     border-radius: 24px;

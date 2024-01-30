@@ -75,8 +75,8 @@ export default function Chart({ city }) {
     <ChartContainer>
       <h1>Próximos dias</h1>
       <LineChart
-        width={850}
-        height={350}
+        width={600}
+        height={300}
         data={data}
         margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
         style={{ backgroundColor: "#f0f0f0", padding: "10px" }}
@@ -111,7 +111,7 @@ const ChartContainer = styled.div`
   padding: 10px;
 
   h1 {
-    font-size: 24px;
+    font-size: 20px;
     color: #333;
     margin-bottom: 20px;
   }

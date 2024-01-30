@@ -87,7 +87,7 @@ export default function InfoContainer({ city }) {
 }
 
 const Container = styled.div`
-  width:100vh;
+  width:80vh;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -100,24 +100,24 @@ const Info = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 250px;
-  height: 120px;
+  width: 150px;
+  height: 90px;
   padding: 10px;
   border-radius: 32px;
   background-color: #4d4494;
   color: white;
-  font-size: 22px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 400;
   margin-right:10px;
 
   .custom-font {
-    margin-top: 15px;
-    font-size: 40px;
+    margin-top: 10px;
+    font-size: 35px;
   }
 `;
 
 const CoatPhrase = styled.div`
-  font-size: 24px;
+  font-size: 20px;
   margin: 20px;
   color: #afadad;
   text-align: left;

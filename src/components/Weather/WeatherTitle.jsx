@@ -16,9 +16,9 @@ export default function WeatherTitle() {
 
 export const Title = styled.h1`
 width: 40vh;
-font-size:90px;
+font-size:80px;
   @media (min-width: 400px) {
-    font-size: 50px;
+    font-size: 40px;
     margin-bottom: 80px;
     font-weight:600;
   }
@@ -27,12 +27,9 @@ font-size:90px;
 const WeatherLogo = styled.div`
   display: flex;
   text-align: center;
-  align-items: center;
 `;
 
 const CoatImg = styled.img`
-  width: 180px;
-  height: 180px;
-  justify-content: center;
-  
+  width: 130px;
+  height: 120px;
 `;

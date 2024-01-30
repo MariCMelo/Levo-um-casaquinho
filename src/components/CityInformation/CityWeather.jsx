@@ -14,7 +14,6 @@ export default function CityWeather({ city }) {
         
         const cityInfo = await getCity(city);
         if (cityInfo.length === 0) {
-          console.log("errrrrooooo")
           toast('Cidade não encontrada');
  
         }
@@ -72,7 +71,7 @@ const baseStyle = `
 
 const Coord = styled.div`
   ${baseStyle}
-  font-size: 30px;
+  font-size: 23px;
   margin-left: 30px;
 `;
 
@@ -82,13 +81,13 @@ const GeographicCoordinates = styled.div`
 
 const InitialPhrase = styled.div`
   ${baseStyle}
-  margin-top: 20px;
+  margin-top: 15px;
   margin-left: 30px;
-  font-size: 40px;
+  font-size: 23px;
 `;
 
 const City = styled.div`
   ${baseStyle}
   margin-left: 30px;
-  font-size: 70px;
+  font-size: 40px;
 `;

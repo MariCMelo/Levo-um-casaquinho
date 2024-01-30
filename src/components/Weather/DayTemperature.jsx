@@ -96,12 +96,12 @@ export default function DayTemperature({ city }) {
 }
 
 const WeatherIcon = styled.div`
-  font-size: 70px;
-  margin-bottom: 30px;
+  font-size: 60px;
+  margin-bottom: 25px;
 `;
 
 const WeatherDescription = styled.div`
-  font-size: 35px;
+  font-size: 30px;
   margin-bottom: 20px;
   color: #222222;
 `;
@@ -118,12 +118,12 @@ const WeekDay = styled.div`
 `;
 
 const TemperatureDay = styled.h1`
-  font-size: 120px;
+  font-size: 100px;
   margin-bottom: 30px;
   color: ${(props) => props.textColor || "inherit"};
 
   @media (min-width: 600px) {
-    font-size: 120px;
+    font-size: 100px;
     margin-bottom: 30px;
   }
 `;
