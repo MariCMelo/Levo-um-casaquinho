@@ -100,19 +100,19 @@ const Info = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 150px;
-  height: 90px;
-  padding: 10px;
+  width: 160px;
+  height: 100px;
   border-radius: 32px;
   background-color: #4d4494;
   color: white;
   font-size: 18px;
-  font-weight: 400;
   margin-right:10px;
 
   .custom-font {
     margin-top: 10px;
-    font-size: 35px;
+    font-size: 25px;
+    font-weight:500;
+   
   }
 `;
 
