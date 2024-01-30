@@ -43,8 +43,42 @@ export default function InfoContainer({ city }) {
 
   return (
     <>
-      <Container>
-        {/* ... (existing code) */}
+     <Container>
+        <Info>
+          Mínima
+          <span className="custom-font">
+            {weatherData?.main?.temp_min !== undefined
+              ? kelvinToCelsius(weatherData.main.temp_min).toFixed(0) + "°C"
+              : "-"}
+          </span>
+        </Info>
+
+        <Info>
+          Máxima
+          <span className="custom-font">
+            {weatherData?.main?.temp_min !== undefined
+              ? kelvinToCelsius(weatherData.main.temp_max).toFixed(0) + "°C"
+              : "-"}
+          </span>
+        </Info>
+
+        <Info>
+          Umidade
+          <span className="custom-font">
+            {weatherData?.main?.humidity !== undefined
+              ? `${weatherData.main.humidity}%`
+              : "-"}
+          </span>
+        </Info>
+
+        <Info>
+          Vento
+          <span className="custom-font">
+            {weatherData?.wind?.speed !== undefined
+              ? `${weatherData.wind.speed.toFixed(1)} m/s`
+              : "-"}
+          </span>
+        </Info>
       </Container>
 
       {coatPhrase && <CoatPhrase>{coatPhrase}</CoatPhrase>}
@@ -78,7 +112,7 @@ const Info = styled.div`
 
   .custom-font {
     margin-top: 15px;
-    font-size: 45px;
+    font-size: 40px;
   }
 `;
 

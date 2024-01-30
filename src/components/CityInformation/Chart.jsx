@@ -75,8 +75,8 @@ export default function Chart({ city }) {
     <ChartContainer>
       <h1>Próximos dias</h1>
       <LineChart
-        width={800}
-        height={400}
+        width={850}
+        height={350}
         data={data}
         margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
         style={{ backgroundColor: "#f0f0f0", padding: "10px" }}
